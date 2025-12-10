@@ -2,9 +2,9 @@
 import json
 import random
 import argparse
-from utils import Style
+from shared.utils import Style
 from typing import List, Dict
-from constants import MAX_NUM_DOCUMENTS
+from shared.constants import MAX_NUM_DOCUMENTS, PROJECT_ROOT
 from dataset_managers.dataset_news import get_news_dataset_handler
 from dataset_managers.dataset_wikipedia import get_wikipedia_dataset_handler
 
@@ -236,14 +236,12 @@ def main():
             "docs": []  # Add empty 'docs' list as expected by setup_queries.py
         })
 
-    # 6. Save to file
-    print(f"\n{Style.FG_CYAN}Saving queries to {args.output_file}...{Style.RESET}")
+    # Save to file
     try:
         # Add encoding='utf-8' and ensure_ascii=False
-        with open(args.output_file, 'w', encoding='utf-8') as f:
+        with open(PROJECT_ROOT / args.output_file, 'w', encoding='utf-8') as f:
             json.dump(output_data, f, indent=4, ensure_ascii=False)
         print(f"\n{Style.FG_GREEN}Successfully saved {args.num_queries} queries to '{args.output_file}'.{Style.RESET}")
-
     except Exception as e:
         print(f"{Style.FG_RED}Error: Failed to write to file '{args.output_file}'.{Style.RESET}")
         print(f"Details: {e}")

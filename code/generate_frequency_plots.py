@@ -1,12 +1,11 @@
 # ======================== IMPORTS ========================
 import os
-import utils
 import argparse
-from utils import Style
+from shared.utils import Style
 import matplotlib.pyplot as plt
 from typing import List, Tuple, Dict
 from dataset_managers import NewsDataset, WikipediaDataset
-from constants import DATA_SETTINGS, MAX_NUM_DOCUMENTS, TOP_K_WORDS_THRESHOLD, OUTPUT_FOLDER_PATH
+from shared.constants import DATA_SETTINGS, MAX_NUM_DOCUMENTS, TOP_K_WORDS_THRESHOLD, OUTPUT_DIR, PROJECT_ROOT
 
 
 # ======================= FUNCTIONS =======================
@@ -69,13 +68,13 @@ def main(args) -> None:
         None
     """
 
-    print(f"{Style.FG_YELLOW}Using \n\tTop K words threshold: {TOP_K_WORDS_THRESHOLD}, \n\tMax documents: {MAX_NUM_DOCUMENTS}, \n\tOutput folder path: {OUTPUT_FOLDER_PATH}{Style.RESET}. \nTo change, modify config.yaml file.\n")
-    os.makedirs(OUTPUT_FOLDER_PATH, exist_ok=True)
+    print(f"{Style.FG_YELLOW}Using \n\tTop K words threshold: {TOP_K_WORDS_THRESHOLD}, \n\tMax documents: {MAX_NUM_DOCUMENTS}, \n\tOutput folder path: {OUTPUT_DIR}{Style.RESET}. \nTo change, modify config.yaml file.\n")
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 
     # News Dataset
     print(f"{Style.FG_CYAN}Calculating word frequency for news dataset...{Style.RESET}")
-    news_data_path: str = DATA_SETTINGS["news"]["path"]
+    news_data_path: str = PROJECT_ROOT / DATA_SETTINGS["news"]["path"]
     unzipped: bool = DATA_SETTINGS["news"]["unzip"]
     print(f"{Style.FG_YELLOW}Using \n\tMax docs: {MAX_NUM_DOCUMENTS}, \n\tUnzipped: {unzipped}{Style.RESET}. \nTo change, modify config.yaml file.\n")
 
@@ -86,14 +85,14 @@ def main(args) -> None:
                                 "Word Frequency Distribution for News Dataset",
                                 "Words",
                                 "Frequencies",
-                                os.path.join(OUTPUT_FOLDER_PATH, f"news_word_frequency_{args.data_state}_top_{TOP_K_WORDS_THRESHOLD}.png"))
-    print(f"{Style.FG_GREEN}Frequency plot for news dataset saved at {OUTPUT_FOLDER_PATH}\n{Style.RESET}")
+                                os.path.join(OUTPUT_DIR, f"news_word_frequency_{args.data_state}_top_{TOP_K_WORDS_THRESHOLD}.png"))
+    print(f"{Style.FG_GREEN}Frequency plot for news dataset saved at {OUTPUT_DIR}\n{Style.RESET}")
 
 
     # Wikipedia Dataset
     print(f"{Style.FG_CYAN}Calculating word frequency for wikipedia dataset...{Style.RESET}")
-    wikipedia_data_path: str = DATA_SETTINGS["wikipedia"]["path"]
-    print(f"{Style.FG_YELLOW}Using Max docs: {MAX_NUM_DOCUMENTS}{Style.RESET}. To change, modify config.yaml file.\n")
+    wikipedia_data_path: str = PROJECT_ROOT / DATA_SETTINGS["wikipedia"]["path"]
+    print(f"{Style.FG_YELLOW}Using Max docs: {MAX_NUM_DOCUMENTS}{Style.RESET}.\nTo change, modify config.yaml file.\n")
 
     wikipedia_dataset_handler = WikipediaDataset(wikipedia_data_path, MAX_NUM_DOCUMENTS)
     wikipedia_data_freq_dist: dict = wikipedia_dataset_handler.calculate_word_frequency()
@@ -102,8 +101,8 @@ def main(args) -> None:
                                 "Word Frequency Distribution for Wikipedia Dataset",
                                 "Words",
                                 "Frequencies",
-                                os.path.join(OUTPUT_FOLDER_PATH, f"wikipedia_word_frequency_{args.data_state}_top_{TOP_K_WORDS_THRESHOLD}.png"))
-    print(f"{Style.FG_GREEN}Frequency plot for wikipedia dataset saved at {OUTPUT_FOLDER_PATH}\n{Style.RESET}")
+                                os.path.join(OUTPUT_DIR, f"wikipedia_word_frequency_{args.data_state}_top_{TOP_K_WORDS_THRESHOLD}.png"))
+    print(f"{Style.FG_GREEN}Frequency plot for wikipedia dataset saved at {OUTPUT_DIR}\n{Style.RESET}")
 
 
 if __name__ == "__main__":

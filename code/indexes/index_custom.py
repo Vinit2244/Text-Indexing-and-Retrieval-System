@@ -6,14 +6,14 @@ import math
 import zlib
 import redis
 import shutil
-from utils import Style
 from pathlib import Path
 from typing import Iterable
 from .encoder import Encoder
 from rocksdict import Rdict
+from shared.utils import Style
 from .index_base import BaseIndex
 from .query_processing import QueryProcessingEngine
-from constants import IndexInfo, DataStore, Compression, QueryProc, Optimizations, StatusCode, SEARCH_FIELDS, STORAGE_DIR, REDIS_HOST, REDIS_PORT, REDIS_DB
+from shared.constants import IndexInfo, DataStore, Compression, QueryProc, Optimizations, StatusCode, SEARCH_FIELDS, STORAGE_DIR, REDIS_HOST, REDIS_PORT, REDIS_DB
 
 
 # ======================= GLOBALS ========================

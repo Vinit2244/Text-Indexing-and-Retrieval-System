@@ -7,9 +7,9 @@ from typing import List
 from rich.table import Table
 from rich.console import Console
 from indexes import ESIndex, CustomIndex, BaseIndex
-from utils import Style, clear_screen, wait_for_enter
+from shared.utils import Style, clear_screen, wait_for_enter
 from dataset_managers import get_news_dataset_handler, get_wikipedia_dataset_handler
-from constants import ES_HOST, ES_PORT, ES_SCHEME, IndexType, DatasetType, StatusCode, MAX_RESULTS, MAX_NUM_DOCUMENTS, CUST_INDEX_SETTINGS
+from shared.constants import ES_HOST, ES_PORT, ES_SCHEME, IndexType, DatasetType, StatusCode, MAX_RESULTS, MAX_NUM_DOCUMENTS, CUST_INDEX_SETTINGS
 
 
 # ======================= GLOBALS ========================

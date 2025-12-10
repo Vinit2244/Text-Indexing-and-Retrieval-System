@@ -1,12 +1,12 @@
 # ======================== IMPORTS ========================
 import os
-import utils
 import pandas as pd
 from tqdm import tqdm
 from typing import List
 from .dataset_base import Dataset
 from collections import defaultdict
-from utils import Style, load_config
+from shared.constants import PROJECT_ROOT
+from shared.utils import Style, load_config, get_word_freq_dist
 
 
 # ======================== CLASSES ========================
@@ -99,7 +99,7 @@ class WikipediaDataset(Dataset):
                     if curr_row_count == self.max_num_docs:
                         break_flag = True
                         break
-                    item_freq = utils.get_word_freq_dist(text)
+                    item_freq = get_word_freq_dist(text)
                     for word, count in item_freq.items():
                         freq[word] += count
                     pbar.update(1)  # update progress bar for each row
@@ -247,7 +247,7 @@ def get_wikipedia_dataset_handler(max_num_docs: int, verbose: bool=True) -> Wiki
     
     config = load_config()
     
-    data_path: str = config["data"]["wikipedia"]["path"]
+    data_path: str = PROJECT_ROOT / config["data"]["wikipedia"]["path"]
     
     if verbose:
         print(f"{Style.FG_YELLOW}Using \n\tMax docs: {max_num_docs}.{Style.RESET}\nTo change, modify config.yaml file.\n")

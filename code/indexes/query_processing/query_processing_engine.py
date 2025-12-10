@@ -3,10 +3,10 @@ import re
 import os
 import json
 import heapq
-from utils import Style
 from indexes import Encoder
+from shared.utils import Style
 from typing import List, Dict, Any, Set
-from constants import (
+from shared.constants import (
     STORAGE_DIR, 
     MAX_RESULTS, 
     DataStore, 

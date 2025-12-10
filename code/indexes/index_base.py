@@ -1,7 +1,7 @@
 # ======================== IMPORTS ========================
 from typing import Iterable
 from abc import ABC, abstractmethod
-from constants import IndexInfo, DataStore, Compression, QueryProc, Optimizations
+from shared.constants import IndexInfo, DataStore, Compression, QueryProc, Optimizations
 
 
 # ====================== BASE CLASS =======================

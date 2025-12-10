@@ -1,8 +1,8 @@
 # ======================== IMPORTS ========================
 from typing import List
-from utils import load_config, Style
-from constants import MAX_NUM_DOCUMENTS, PREPROCESSING_SETTINGS
+from shared.utils import load_config, Style
 from dataset_managers import NewsDataset, WikipediaDataset
+from shared.constants import MAX_NUM_DOCUMENTS, PREPROCESSING_SETTINGS, PROJECT_ROOT
 
 
 # ======================= FUNCTIONS =======================
@@ -40,13 +40,13 @@ def preprocess_data(config: dict) -> None:
     print(f"{Style.FG_YELLOW}Using Settings for preprocessing: \n\tLowercase: {lowercase}, \n\tRemove Stopwords: {rem_stop} ({stopword_langs}), \n\tRemove Punctuation: {rem_punc}, \n\tRemove Numbers: {rem_num}, \n\tRemove Special Characters: {rem_special}, \n\tStemming: {stem} ({stemming_algo}), \n\tLemmatization: {lemmatize} ({lemmatization_algo}), \n\tMax documents: {max_num_documents}{Style.RESET}. \nTo change, modify config.yaml file.\n")
 
     print(f"{Style.FG_CYAN}Preprocessing news dataset...{Style.RESET}")
-    path_to_news_dataset: str = config["data"]["news"]["path"]
+    path_to_news_dataset: str = PROJECT_ROOT / config["data"]["news"]["path"]
     unzip: bool = config["data"]["news"]["unzip"]
     NewsDataset(path_to_news_dataset, max_num_documents, unzip).preprocess(lowercase, rem_stop, stopword_langs, rem_punc, rem_num, rem_special, stem, stemming_algo, lemmatize, lemmatization_algo)
     print(f"{Style.FG_GREEN}Preprocessing of news dataset completed.\n{Style.RESET}")
 
     print(f"{Style.FG_CYAN}Preprocessing wikipedia dataset...{Style.RESET}")
-    path_to_wikipedia_dataset: str = config["data"]["wikipedia"]["path"]
+    path_to_wikipedia_dataset: str = PROJECT_ROOT / config["data"]["wikipedia"]["path"]
     WikipediaDataset(path_to_wikipedia_dataset, max_num_documents).preprocess(lowercase, rem_stop, stopword_langs, rem_punc, rem_num, rem_special, stem, stemming_algo, lemmatize, lemmatization_algo)
     print(f"{Style.FG_GREEN}Preprocessing of wikipedia dataset completed.\n{Style.RESET}")
 

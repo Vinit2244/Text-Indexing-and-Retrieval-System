@@ -1,9 +1,9 @@
-*data/
+data/
 env/
 *__pycache__/
 .env
 *elastic-start-local/
 storage/
 .DS_Store
-*logs/
-*temp/
+logs/
+temp/

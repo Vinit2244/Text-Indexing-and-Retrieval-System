@@ -1,12 +1,12 @@
 # ======================== IMPORTS ========================
 import json
 import argparse
-from utils import Style
 from typing import List
-from constants import StatusCode
+from shared.utils import Style
 from indexes import QueryProcessingEngine
 from elasticsearch import Elasticsearch, ConnectionError
-from constants import ES_HOST, ES_PORT, ES_SCHEME, MAX_RESULTS, SEARCH_FIELDS, MAX_NUM_DOCUMENTS, PREPROCESSING_SETTINGS, USERNAME, PASSWORD
+from shared.constants import (ES_HOST, ES_PORT, ES_SCHEME, MAX_RESULTS, SEARCH_FIELDS, MAX_NUM_DOCUMENTS, 
+                              PREPROCESSING_SETTINGS, USERNAME, PASSWORD, PROJECT_ROOT, StatusCode)
 
 
 # ======================= FUNCTIONS =======================
@@ -105,4 +105,4 @@ if __name__ == "__main__":
     file_path = args.path
     attributes = args.attributes
 
-    query_and_update(file_path, attributes)
+    query_and_update(PROJECT_ROOT / file_path, attributes)

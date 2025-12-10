@@ -1,12 +1,12 @@
 # ======================== IMPORTS ========================
 import json
 import inspect
-from utils import Style
 from typing import Iterable
+from shared.utils import Style
 from .index_base import BaseIndex
 from elasticsearch import Elasticsearch, helpers
 from .query_processing import QueryProcessingEngine
-from constants import StatusCode, SEARCH_FIELDS, MAX_RESULTS, USERNAME, PASSWORD, CHUNK_SIZE
+from shared.constants import StatusCode, SEARCH_FIELDS, MAX_RESULTS, USERNAME, PASSWORD, CHUNK_SIZE
 
 print(f"{Style.FG_YELLOW}Using \n\tChunk size: {CHUNK_SIZE}, \n\tMax results: {MAX_RESULTS}, \n\tSearch field: {SEARCH_FIELDS}{Style.RESET}. \nTo change, modify config.yaml file.\n")
 

@@ -1,8 +1,13 @@
 # ======================== IMPORTS ========================
 import os
+import sys
 from enum import Enum
-from utils import load_config
+from pathlib import Path
 from dotenv import load_dotenv
+from shared.utils import load_config
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.append(str(PROJECT_ROOT))
 
 
 # ======================= CONSTANTS =======================
@@ -26,18 +31,18 @@ TOP_K_WORDS_THRESHOLD  : int  = config.get("top_k_words_threshold", 50)
 CHUNK_SIZE             : int  = config.get("elasticsearch", {}).get("chunk_size", 500)
 RANKING_SCORE_THRESHOLD: float = config.get("ranking_score_threshold", 0.1)
 
-STORAGE_DIR            : str  = config.get("storage_folder_path", "./storage")
-TEMP_FOLDER_PATH       : str  = config.get("temp_folder_path", "./temp")
-OUTPUT_FOLDER_PATH     : str  = config.get("output_folder_path", "./output")
+STORAGE_DIR            : str  = PROJECT_ROOT / config.get("storage_dir", "storage")
+TEMP_DIR               : str  = PROJECT_ROOT / config.get("temp_dir", "temp")
+OUTPUT_DIR             : str  = PROJECT_ROOT / config.get("output_dir", "output")
 os.makedirs(STORAGE_DIR, exist_ok=True)
-os.makedirs(TEMP_FOLDER_PATH, exist_ok=True)
-os.makedirs(OUTPUT_FOLDER_PATH, exist_ok=True)
+os.makedirs(TEMP_DIR, exist_ok=True)
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # Environment variables
 load_dotenv()
-USERNAME = os.getenv("USERNAME")
-PASSWORD = os.getenv("PASSWORD")
-API_KEY  = os.getenv("API_KEY")
+USERNAME: str = os.getenv("USERNAME")
+PASSWORD: str = os.getenv("PASSWORD")
+API_KEY : str = os.getenv("API_KEY")
 
 
 # ========================= ENUMS =========================

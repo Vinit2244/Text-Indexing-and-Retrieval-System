@@ -1,14 +1,14 @@
 # ======================== IMPORTS ========================
 import os
 import json
-import utils
 import zipfile
 import subprocess
 from tqdm import tqdm
 from .dataset_base import Dataset
 from collections import defaultdict
-from utils import Style, load_config
 from typing import List, Tuple, Generator
+from shared.constants import PROJECT_ROOT
+from shared.utils import Style, load_config, get_word_freq_dist
 
 
 # ======================== CLASSES ========================
@@ -228,7 +228,7 @@ class NewsDataset(Dataset):
             """
 
             text: str = json.load(f)["text"]
-            file_freq: dict = utils.get_word_freq_dist(text)
+            file_freq: dict = get_word_freq_dist(text)
             for word, count in file_freq.items():
                 freq[word] += count
         
@@ -371,7 +371,7 @@ def get_news_dataset_handler(max_num_docs: int, verbose: bool=True) -> NewsDatas
     
     config: dict = load_config()
 
-    path: str = config["data"]["news"]["path"]
+    path: str = PROJECT_ROOT / config["data"]["news"]["path"]
     unzipped: bool = config["data"]["news"]["unzip"]
 
     if verbose:
